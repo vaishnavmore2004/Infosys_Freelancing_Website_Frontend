@@ -11,8 +11,8 @@ const FreelancerDashboard = () => {
   };
 
   const handleProfile = () => {
-    console.log('Navigating to profile...');
-    navigate('/profile');
+    console.log('Navigating to freelancer profile...');
+    navigate('/freelancer-profile');
   };
 
   const handleApply = (projectName) => {
