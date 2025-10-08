@@ -74,64 +74,90 @@ const FreelancerProfile = () => {
           
         </div>
 
-        {/* Save Confirmation Modal */}
+        {/* Save Confirmation Modal - Top of Screen */}
         {showSaveModal && (
-          <div className="save-modal-overlay">
-            <div className="save-modal">
-              <div className="save-modal-content">
-                <div className="save-modal-icon">✅</div>
-                <p className="save-modal-text">Changes saved successfully!</p>
+          <div className="save-modal-top-overlay">
+            <div className="save-modal-top">
+              <div className="save-modal-top-content">
+                <div className="save-modal-top-icon">✅</div>
+                <p className="save-modal-top-text">Changes saved successfully!</p>
               </div>
             </div>
           </div>
         )}
 
  
+        {/* Navigation Bar */}
+        <div className="profile-nav">
+          <button onClick={() => document.getElementById('personal-info-section').scrollIntoView({ behavior: 'smooth' })}>Personal Info</button>
+          <button onClick={() => document.getElementById('contact-section').scrollIntoView({ behavior: 'smooth' })}>Contact</button>
+          <button onClick={() => document.getElementById('level-badge-section').scrollIntoView({ behavior: 'smooth' })}>Level Badge</button>
+          <button onClick={() => document.getElementById('bio-section').scrollIntoView({ behavior: 'smooth' })}>Profile Summary</button>
+          <button onClick={() => document.getElementById('resume-section').scrollIntoView({ behavior: 'smooth' })}>Resume</button>
+          <button onClick={() => document.getElementById('skills-section').scrollIntoView({ behavior: 'smooth' })}>Skills</button>
+          <button onClick={() => document.getElementById('experience-section').scrollIntoView({ behavior: 'smooth' })}>Experience</button>
+          <button onClick={() => document.getElementById('social-section').scrollIntoView({ behavior: 'smooth' })}>Social Links</button>
+          <button onClick={() => document.getElementById('languages-section').scrollIntoView({ behavior: 'smooth' })}>Languages</button>
+          <button onClick={() => document.getElementById('preferences-section').scrollIntoView({ behavior: 'smooth' })}>Preferences</button>
+        </div>
+
         <div className="profile-grid">
           {/* LEFT COLUMN */}
           <div className="profile-left">
-            <div className="personal-info-grid">
-              <h2 className="profile-heading">Personal Information</h2>
+            <div id="personal-info-section" className="personal-info-grid">
+              <div className="personal-info-header">
+                <h2 className="profile-heading">Personal Information</h2>
+                {!editingSections.profile ? (
+                  <button className="section-edit-btn" onClick={() => handleSectionEdit('profile')}>
+                    EDIT
+                  </button>
+                ) : (
+                  <button className="section-save-btn" onClick={() => handleSectionSave('profile')}>
+                    SAVE
+                  </button>
+                )}
+              </div>
               <div className="profile-photo-section">
-                <div className="profile-photo-placeholder">
-                  {profileData.profilePhoto ? (
-                    <img
-                      src={profileData.profilePhoto}
-                      alt="Profile"
-                      style={{ width: '90px', height: '90px', borderRadius: '50%' }}
-                    />
-                  ) : (
-                    <div className="photo-upload-area">
-                      <div className="photo-icon">📷</div>
-                    </div>
-                  )}
-                </div>
-                <input
-                  type="file"
-                  accept="image/*"
-                  style={{ display: 'none' }}
-                  id="profile-photo-input"
-                  onChange={(e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                      const reader = new FileReader();
-                      reader.onload = (ev) => {
-                        handleInputChange('profilePhoto', ev.target.result);
-                      };
-                      reader.readAsDataURL(file);
-                    }
-                  }}
-                  disabled={!editingSections.profile}
-                />
-                <label htmlFor="profile-photo-input">
+                <div className="profile-photo-container">
+                  <div className="profile-photo-placeholder">
+                    {profileData.profilePhoto ? (
+                      <img
+                        src={profileData.profilePhoto}
+                        alt="Profile"
+                        style={{ width: '90px', height: '90px', borderRadius: '50%' }}
+                      />
+                    ) : (
+                      <div className="photo-upload-area">
+                        <div className="photo-icon">📷</div>
+                      </div>
+                    )}
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    id="profile-photo-input"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (ev) => {
+                          handleInputChange('profilePhoto', ev.target.result);
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                    disabled={!editingSections.profile}
+                  />
                   <button
                     className="upload-photo-btn"
                     disabled={!editingSections.profile}
                     type="button"
+                    onClick={() => document.getElementById('profile-photo-input').click()}
                   >
                     Upload Photo
                   </button>
-                </label>
+                </div>
               </div>
               <div className="profile-info">
                 <div className="input-group">
@@ -161,16 +187,16 @@ const FreelancerProfile = () => {
                 </div>
               </div>
             </div>
-            <div className="contact-details-grid">
+            <div id="contact-section" className="contact-details-grid">
               <div className="contact-details-header">
                 <h2 className="profile-heading">Contact Details</h2>
                 {!editingSections.contact ? (
                   <button className="section-edit-btn" onClick={() => handleSectionEdit('contact')}>
-                    Edit
+                    EDIT
                   </button>
                 ) : (
                   <button className="section-save-btn" onClick={() => handleSectionSave('contact')}>
-                    Save
+                    SAVE
                   </button>
                 )}
               </div>
@@ -197,20 +223,24 @@ const FreelancerProfile = () => {
                 </div>
               </div>
             </div>
-            <div className="level-badge-grid">
+            <div id="level-badge-section" className="level-badge-grid">
               <h2 className="profile-heading">Level Badge</h2>
-              <div className="badge-section">
-                <div className="badge-container">
-                  <div className="badge-icon">🛡</div>
-                  <div className="badge-content">
-                    <div className="badge-level">Level 3</div>
-                    <div className="badge-title">Rookie</div>
-                    <div className="badge-progress">
-                      <div className="progress-text">8/10 projects — 80%</div>
-                      <div className="progress-bar">
-                        <div className="progress-fill"></div>
-                      </div>
-                    </div>
+              <div className="level-badge-card">
+                <div className="badge-icon-container">
+                  <div className="badge-icon">
+                    <div className="badge-icon-left"></div>
+                    <div className="badge-icon-right"></div>
+                  </div>
+                </div>
+                <div className="badge-content">
+                  <div className="badge-level">Level 3</div>
+                  <div className="badge-title">ROOKIE</div>
+                  <div className="badge-progress-info">
+                    <span className="progress-projects">8/10 projects</span>
+                    <span className="progress-percentage">80%</span>
+                  </div>
+                  <div className="progress-bar">
+                    <div className="progress-fill"></div>
                   </div>
                 </div>
               </div>
@@ -218,33 +248,17 @@ const FreelancerProfile = () => {
           </div>
           {/* RIGHT COLUMN */}
           <div className="profile-content">
-            {/* Move nav bar here */}
-            <div className="profile-nav">
-              <button onClick={() => document.getElementById('bio-section').scrollIntoView({ behavior: 'smooth' })}>Profile Summary / Bio</button>
-              <button onClick={() => document.getElementById('resume-section').scrollIntoView({ behavior: 'smooth' })}>Resume</button>
-              <button onClick={() => document.getElementById('skills-section').scrollIntoView({ behavior: 'smooth' })}>Skills</button>
-              <button onClick={() => document.getElementById('experience-section').scrollIntoView({ behavior: 'smooth' })}>Experience</button>
-              {/* Dropdown for remaining items */}
-              <div className="nav-dropdown">
-                <button className="nav-dropdown-btn">More ▼</button>
-                <div className="nav-dropdown-content">
-                  <button onClick={() => document.getElementById('social-section').scrollIntoView({ behavior: 'smooth' })}>Social Links</button>
-                  <button onClick={() => document.getElementById('languages-section').scrollIntoView({ behavior: 'smooth' })}>Languages Known</button>
-                  <button onClick={() => document.getElementById('preferences-section').scrollIntoView({ behavior: 'smooth' })}>Job Preferences</button>
-                </div>
-              </div>
-            </div>
             {/* Profile Summary / Bio Section */}
             <div id="bio-section" className="bio-section">
               <div className="section-header">
                 <h3 className="section-title">Profile Summary / Bio</h3>
                 {!editingSections.bio ? (
                   <button className="section-edit-btn" onClick={() => handleSectionEdit('bio')}>
-                    Edit
+                    EDIT
                   </button>
                 ) : (
                   <button className="section-save-btn" onClick={() => handleSectionSave('bio')}>
-                    Save
+                    SAVE
                   </button>
                 )}
               </div>
@@ -266,16 +280,36 @@ const FreelancerProfile = () => {
                 <h3 className="section-title">Resume</h3>
                 {!editingSections.resume ? (
                   <button className="section-edit-btn" onClick={() => handleSectionEdit('resume')}>
-                    Edit
+                    EDIT
                   </button>
                 ) : (
                   <button className="section-save-btn" onClick={() => handleSectionSave('resume')}>
-                    Save
+                    SAVE
                   </button>
                 )}
               </div>
               <div className="file-upload-area">
-                <button className="upload-resume-btn" disabled={!editingSections.resume}>
+                <input
+                  type="file"
+                  accept=".pdf,.doc,.docx"
+                  style={{ display: 'none' }}
+                  id="resume-file-input"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      console.log('Resume file selected:', file.name);
+                      // You can add logic here to handle the resume file
+                      // For now, we'll just log it
+                    }
+                  }}
+                  disabled={!editingSections.resume}
+                />
+                <button 
+                  className="upload-resume-btn" 
+                  disabled={!editingSections.resume}
+                  type="button"
+                  onClick={() => document.getElementById('resume-file-input').click()}
+                >
                   📄 Upload Resume
                 </button>
               </div>
@@ -287,11 +321,11 @@ const FreelancerProfile = () => {
                 <h3 className="section-title">Skills</h3>
                 {!editingSections.skills ? (
                   <button className="section-edit-btn" onClick={() => handleSectionEdit('skills')}>
-                    Edit
+                    EDIT
                   </button>
                 ) : (
                   <button className="section-save-btn" onClick={() => handleSectionSave('skills')}>
-                    Save
+                    SAVE
                   </button>
                 )}
               </div>
@@ -316,11 +350,11 @@ const FreelancerProfile = () => {
                 <h3 className="section-title">Experience</h3>
                 {!editingSections.experience ? (
                   <button className="section-edit-btn" onClick={() => handleSectionEdit('experience')}>
-                    Edit
+                    EDIT
                   </button>
                 ) : (
                   <button className="section-save-btn" onClick={() => handleSectionSave('experience')}>
-                    Save
+                    SAVE
                   </button>
                 )}
               </div>
@@ -345,11 +379,11 @@ const FreelancerProfile = () => {
                 <h3 className="section-title">Social Links</h3>
                 {!editingSections.social ? (
                   <button className="section-edit-btn" onClick={() => handleSectionEdit('social')}>
-                    Edit
+                    EDIT
                   </button>
                 ) : (
                   <button className="section-save-btn" onClick={() => handleSectionSave('social')}>
-                    Save
+                    SAVE
                   </button>
                 )}
               </div>
@@ -398,11 +432,11 @@ const FreelancerProfile = () => {
                 <h3 className="section-title">Languages Known</h3>
                 {!editingSections.languages ? (
                   <button className="section-edit-btn" onClick={() => handleSectionEdit('languages')}>
-                    Edit
+                    EDIT
                   </button>
                 ) : (
                   <button className="section-save-btn" onClick={() => handleSectionSave('languages')}>
-                    Save
+                    SAVE
                   </button>
                 )}
               </div>
@@ -448,11 +482,11 @@ const FreelancerProfile = () => {
                 <h3 className="section-title">Job Preferences</h3>
                 {!editingSections.preferences ? (
                   <button className="section-edit-btn" onClick={() => handleSectionEdit('preferences')}>
-                    Edit
+                    EDIT
                   </button>
                 ) : (
                   <button className="section-save-btn" onClick={() => handleSectionSave('preferences')}>
-                    Save
+                    SAVE
                   </button>
                 )}
               </div>
