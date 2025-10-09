@@ -17,7 +17,12 @@ const Navbar = () => {
       <div className="navbar-container">
         <div className="navbar-logo">
           <Link to="/" className="logo-link">
-            FreelanceConnect
+            <img 
+              src={require('../Pics/TalentLoop logo.png')} 
+              alt="TalentLoop Logo" 
+              className="logo-image"
+            />
+            <span className="logo-text">TalentLoop</span>
           </Link>
         </div>
         

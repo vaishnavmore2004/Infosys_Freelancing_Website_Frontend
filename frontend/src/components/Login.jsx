@@ -95,7 +95,7 @@ const Login = () => {
       <div className="login-container">
         <div className="login-header">
           <h1 className="login-title">Welcome Back</h1>
-          <p className="login-subtitle">Sign in to your FreelanceConnect account</p>
+          <p className="login-subtitle">Sign in to your TalentLoop account</p>
         </div>
         
         <div className="login-form">

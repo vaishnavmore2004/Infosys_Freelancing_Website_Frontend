@@ -1,6 +1,6 @@
-# FreelanceConnect Frontend
+# TalentLoop Frontend
 
-A modern and advanced landing page for a Freelancing Web Application built with React.js.
+A modern and advanced landing page for TalentLoop - Connecting Top Talent with Opportunities Worldwide. Built with React.js.
 
 ## Features
 
@@ -22,7 +22,8 @@ A modern and advanced landing page for a Freelancing Web Application built with 
 ## Components
 
 ### Navbar
-- Fixed top navigation with gradient logo
+- Fixed top navigation with TalentLoop logo and gradient text
+- Logo image displayed beside the brand name
 - Three navigation buttons: About, Register, Login
 - Smooth hover transitions with glow effects
 
