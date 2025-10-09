@@ -19,7 +19,7 @@ const RecruiterDashboard = () => {
 
   const handleProfile = () => {
     console.log('Navigating to profile...');
-    navigate('/profile');
+    navigate('/recruiter-profile');
   };
 
   const handleContact = (freelancerName) => {
