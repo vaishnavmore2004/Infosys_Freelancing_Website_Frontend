@@ -11,6 +11,7 @@ const RecruiterProfile = () => {
   
   const [profileData, setProfileData] = useState({
     companyLogo: '',
+    recruiterName: '',
     companyName: '',
     employeeSize: '',
     aboutUs: '',
@@ -163,16 +164,10 @@ const RecruiterProfile = () => {
         {/* Navigation Bar */}
         <div className="profile-nav">
           <button onClick={() => document.getElementById('company-info-section').scrollIntoView({ behavior: 'smooth' })}>
-            Company Info
-          </button>
-          <button onClick={() => document.getElementById('employee-size-section').scrollIntoView({ behavior: 'smooth' })}>
-            Employee Size
+            Personal Info
           </button>
           <button onClick={() => document.getElementById('about-section').scrollIntoView({ behavior: 'smooth' })}>
             About Us
-          </button>
-          <button onClick={() => document.getElementById('contact-section').scrollIntoView({ behavior: 'smooth' })}>
-            Contact Details
           </button>
           <button onClick={() => document.getElementById('motive-section').scrollIntoView({ behavior: 'smooth' })}>
             Company Motive
@@ -185,10 +180,10 @@ const RecruiterProfile = () => {
         <div className="profile-grid">
           {/* LEFT COLUMN */}
           <div className="profile-left">
-            {/* Company Info Section */}
+            {/* Personal Info Section */}
             <div id="company-info-section" className="company-info-grid">
               <div className="company-info-header">
-                <h2 className="profile-heading">Company Information</h2>
+                <h2 className="profile-heading">Personal Information</h2>
                 {!editingSections.companyInfo ? (
                   <button className="section-edit-btn" onClick={() => handleSectionEdit('companyInfo')}>
                     EDIT
@@ -243,6 +238,17 @@ const RecruiterProfile = () => {
               </div>
               <div className="company-info">
                 <div className="input-group">
+                  <label>Recruiter Name</label>
+                  <input
+                    type="text"
+                    value={profileData.recruiterName}
+                    onChange={(e) => handleInputChange('recruiterName', e.target.value)}
+                    disabled={!editingSections.companyInfo}
+                    className="profile-input"
+                    placeholder="Enter recruiter name"
+                  />
+                </div>
+                <div className="input-group">
                   <label>Company Name</label>
                   <input
                     type="text"
@@ -253,58 +259,13 @@ const RecruiterProfile = () => {
                     placeholder="Enter company name"
                   />
                 </div>
-              </div>
-            </div>
-
-            {/* Employee Size Section */}
-            <div id="employee-size-section" className="employee-size-grid">
-              <div className="section-header">
-                <h2 className="profile-heading">Employee Size</h2>
-                {!editingSections.employeeSize ? (
-                  <button className="section-edit-btn" onClick={() => handleSectionEdit('employeeSize')}>
-                    EDIT
-                  </button>
-                ) : (
-                  <button className="section-save-btn" onClick={() => handleSectionSave('employeeSize')}>
-                    SAVE
-                  </button>
-                )}
-              </div>
-              <div className="input-group">
-                <label>Number of Employees</label>
-                <input
-                  type="number"
-                  value={profileData.employeeSize}
-                  onChange={(e) => handleInputChange('employeeSize', e.target.value)}
-                  disabled={!editingSections.employeeSize}
-                  className="profile-input"
-                  placeholder="e.g., 50"
-                />
-              </div>
-            </div>
-
-            {/* Contact Details Section */}
-            <div id="contact-section" className="contact-details-grid">
-              <div className="contact-details-header">
-                <h2 className="profile-heading">Contact Details</h2>
-                {!editingSections.contact ? (
-                  <button className="section-edit-btn" onClick={() => handleSectionEdit('contact')}>
-                    EDIT
-                  </button>
-                ) : (
-                  <button className="section-save-btn" onClick={() => handleSectionSave('contact')}>
-                    SAVE
-                  </button>
-                )}
-              </div>
-              <div className="contact-fields">
                 <div className="input-group">
                   <label>Official Email</label>
                   <input
                     type="email"
                     value={profileData.contactEmail}
                     onChange={(e) => handleInputChange('contactEmail', e.target.value)}
-                    disabled={!editingSections.contact}
+                    disabled={!editingSections.companyInfo}
                     className="profile-input"
                     placeholder="company@example.com"
                   />
