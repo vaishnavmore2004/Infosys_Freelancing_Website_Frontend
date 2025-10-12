@@ -28,7 +28,7 @@ const Login = () => {
   };
 
   const handleSubmitForgotPassword = () => {
-    if (forgotPasswordData.email && forgotPasswordData.newPassword) {
+    if (forgotPasswordData.email) {
       console.log('Password reset requested for:', forgotPasswordData.email);
       setShowForgotPasswordModal(false);
       setShowSuccessModal(true);
@@ -47,7 +47,7 @@ const Login = () => {
           <div className="success-modal">
             <div className="success-modal-content">
               <div className="success-modal-icon">✅</div>
-              <p className="success-modal-text">Password Changed Successfully!</p>
+              <p className="success-modal-text">Mail Sent Successfully!</p>
             </div>
           </div>
         </div>
@@ -74,16 +74,7 @@ const Login = () => {
                   placeholder="Enter your registered email"
                 />
               </div>
-              <div className="form-group">
-                <label>Set New Password</label>
-                <input
-                  type="password"
-                  value={forgotPasswordData.newPassword}
-                  onChange={(e) => handleForgotPasswordChange('newPassword', e.target.value)}
-                  className="forgot-password-input"
-                  placeholder="Enter new password"
-                />
-              </div>
+              
               <button className="submit-forgot-btn" onClick={handleSubmitForgotPassword}>
                 Submit
               </button>

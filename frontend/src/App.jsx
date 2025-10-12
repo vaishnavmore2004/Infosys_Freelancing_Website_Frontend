@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Login from './components/Login';
 import Register from './components/Register';
+import ResetPassword from './components/ResetPassword';
 import FreelancerDashboard from './components/FreelancerDashboard';
 import RecruiterDashboard from './components/RecruiterDashboard';
 import Profile from './components/Profile';
@@ -44,6 +45,11 @@ function App() {
               <Navbar />
               <Register />
             </>
+          } />
+          
+          {/* Reset Password Page */}
+          <Route path="/reset-password" element={
+            <ResetPassword />
           } />
           
           {/* Freelancer Dashboard Page */}
