@@ -203,6 +203,39 @@
               inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
+.current-projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.view-all-btn {
+  background: transparent;
+  border: 2px solid rgba(236, 65, 134, 0.5);
+  border-radius: 20px;
+  padding: 8px 20px;
+  color: #FFFFFF;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.view-all-btn:hover {
+  border-color: #EC4186;
+  background: rgba(236, 65, 134, 0.1);
+  box-shadow: 0 0 15px rgba(236, 65, 134, 0.4);
+  transform: translateY(-2px);
+}
+
+.view-all-btn:active {
+  transform: translateY(0);
+}
+
 .current-projects-list {
   display: flex;
   flex-direction: column;

@@ -13,6 +13,7 @@ const PostJob = () => {
     location: '',
     jobType: '',
     experience: '',
+    salary: '',
     skillsRequired: '',
     keyResponsibilities: '',
     jobDescription: ''
@@ -35,6 +36,7 @@ const PostJob = () => {
       location: '',
       jobType: '',
       experience: '',
+      salary: '',
       skillsRequired: '',
       keyResponsibilities: '',
       jobDescription: ''
@@ -47,8 +49,8 @@ const PostJob = () => {
     
     // Validate required fields
     if (!formData.role || !formData.organizationName || !formData.location || 
-        !formData.jobType || !formData.experience || !formData.skillsRequired || 
-        !formData.keyResponsibilities || !formData.jobDescription) {
+        !formData.jobType || !formData.experience || !formData.salary ||
+        !formData.skillsRequired || !formData.keyResponsibilities || !formData.jobDescription) {
       alert('Please fill in all fields!');
       return;
     }
@@ -174,6 +176,20 @@ const PostJob = () => {
               <option value="6-8 years">6–8 years</option>
               <option value="8-10 years">8–10 years</option>
             </select>
+          </div>
+
+          {/* Salary */}
+          <div className="form-field">
+            <label htmlFor="salary">Salary Offered *</label>
+            <input
+              type="text"
+              id="salary"
+              name="salary"
+              value={formData.salary}
+              onChange={handleInputChange}
+              placeholder="e.g., ₹50,000 or ₹30,000 - ₹50,000"
+              required
+            />
           </div>
 
           {/* Skills Required */}

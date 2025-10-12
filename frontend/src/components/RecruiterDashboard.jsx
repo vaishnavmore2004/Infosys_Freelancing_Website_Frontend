@@ -4,6 +4,23 @@ import './RecruiterDashboard.css';
 
 const RecruiterDashboard = () => {
   const navigate = useNavigate();
+
+  // Sample project data - showing first two projects (newest)
+  // In real app, this would be synced with AllProjects data from backend/state management
+  const [recentProjects] = useState([
+    {
+      id: 1,
+      projectName: 'E-commerce Website Development',
+      freelancer: 'John Doe',
+      salary: '₹50,000'
+    },
+    {
+      id: 2,
+      projectName: 'Mobile App UI/UX Design',
+      freelancer: 'Jane Smith',
+      salary: '₹35,000'
+    }
+  ]);
   
   const handleLogout = () => {
     console.log('Logging out...');
@@ -22,6 +39,11 @@ const RecruiterDashboard = () => {
   const handlePostProject = () => {
     console.log('Navigating to post project page...');
     navigate('/post-project');
+  };
+
+  const handleViewAllProjects = () => {
+    console.log('Navigating to all projects page...');
+    navigate('/all-projects');
   };
 
   return (
@@ -67,54 +89,38 @@ const RecruiterDashboard = () => {
 
           {/* Current Projects Section (Right) */}
           <div className="current-projects-section">
-            <h2 className="section-title">Current Projects</h2>
+            <div className="current-projects-header">
+              <h2 className="section-title">Current Projects</h2>
+              <button className="view-all-btn" onClick={handleViewAllProjects}>
+                View All
+              </button>
+            </div>
             
             <div className="current-projects-list">
-              <div className="current-project-card">
-                <div className="project-details">
-                  <div className="project-field">
-                    <span className="field-label">Project:</span>
-                    <span className="field-value">Web Dev</span>
+              {recentProjects.map((project) => (
+                <div key={project.id} className="current-project-card">
+                  <div className="project-details">
+                    <div className="project-field">
+                      <span className="field-label">Project:</span>
+                      <span className="field-value">{project.projectName}</span>
+                    </div>
+                    <div className="project-field">
+                      <span className="field-label">Freelancer:</span>
+                      <span className="field-value">{project.freelancer}</span>
+                    </div>
+                    <div className="project-field">
+                      <span className="field-label">Pay:</span>
+                      <span className="field-value pay-amount">{project.salary}</span>
+                    </div>
                   </div>
-                  <div className="project-field">
-                    <span className="field-label">Freelancer:</span>
-                    <span className="field-value">XYZ</span>
-                  </div>
-                  <div className="project-field">
-                    <span className="field-label">Pay:</span>
-                    <span className="field-value pay-amount">₹4000</span>
-                  </div>
+                  <button 
+                    className="contact-btn"
+                    onClick={() => handleContact(project.freelancer)}
+                  >
+                    Contact
+                  </button>
                 </div>
-                <button 
-                  className="contact-btn"
-                  onClick={() => handleContact('XYZ')}
-                >
-                  Contact
-                </button>
-              </div>
-              
-              <div className="current-project-card">
-                <div className="project-details">
-                  <div className="project-field">
-                    <span className="field-label">Project:</span>
-                    <span className="field-value">DBA</span>
-                  </div>
-                  <div className="project-field">
-                    <span className="field-label">Freelancer:</span>
-                    <span className="field-value">ABC</span>
-                  </div>
-                  <div className="project-field">
-                    <span className="field-label">Pay:</span>
-                    <span className="field-value pay-amount">₹4000</span>
-                  </div>
-                </div>
-                <button 
-                  className="contact-btn"
-                  onClick={() => handleContact('ABC')}
-                >
-                  Contact
-                </button>
-              </div>
+              ))}
             </div>
           </div>
         </div>
