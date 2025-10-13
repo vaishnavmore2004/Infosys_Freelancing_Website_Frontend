@@ -13,6 +13,7 @@ import FreelancerProfile from './components/FreelancerProfile';
 import RecruiterProfile from './components/RecruiterProfile';
 import PostJob from './components/PostJob';
 import AllProjects from './components/AllProjects';
+import JobSearch from './components/JobSearch';
 import './App.css';
 
 
@@ -85,6 +86,11 @@ function App() {
           {/* All Projects Page */}
           <Route path="/all-projects" element={
             <AllProjects />
+          } />
+          
+          {/* Job Search Page */}
+          <Route path="/job-search" element={
+            <JobSearch />
           } />
         </Routes>
       </div>
