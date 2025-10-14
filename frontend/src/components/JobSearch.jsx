@@ -22,8 +22,13 @@ const JobSearch = () => {
     navigate('/freelancer-dashboard');
   };
 
-  const handleApply = (jobTitle) => {
-    console.log(`Applied for ${jobTitle}`);
+  const handleApply = (job) => {
+    console.log(`Navigating to apply for ${job.title}`);
+    navigate('/job-application', { 
+      state: { 
+        jobData: job 
+      } 
+    });
   };
 
   const handleSave = (jobTitle) => {
@@ -60,7 +65,17 @@ const JobSearch = () => {
       location: "Hyderabad, India",
       salary: "₹8-12 LPA",
       postedDate: "Posted 16 days ago",
-      isEarlyApplicant: true
+      isEarlyApplicant: true,
+      jobType: "Hybrid",
+      skills: ["React", "Node.js", "JavaScript", "TypeScript", "MongoDB", "AWS"],
+      responsibilities: [
+        "Design and develop scalable web applications using React and Node.js",
+        "Collaborate with cross-functional teams to deliver high-quality software",
+        "Write clean, maintainable, and well-documented code",
+        "Participate in code reviews and technical discussions",
+        "Mentor junior developers and contribute to team growth"
+      ],
+      description: "We are looking for a passionate Senior Software Development Engineer to join our dynamic team. You will be responsible for developing and maintaining high-quality web applications, working with modern technologies, and contributing to our product's success."
     },
     {
       id: 2,
@@ -70,7 +85,17 @@ const JobSearch = () => {
       location: "Hyderabad",
       salary: "₹10-15 LPA",
       postedDate: "Posted a month ago",
-      isEarlyApplicant: true
+      isEarlyApplicant: true,
+      jobType: "On-site",
+      skills: ["Java", "Spring Boot", "Microservices", "SQL", "Docker", "Kubernetes"],
+      responsibilities: [
+        "Lead application development projects from conception to deployment",
+        "Analyze business requirements and design technical solutions",
+        "Manage development teams and ensure code quality standards",
+        "Implement best practices for software architecture",
+        "Coordinate with stakeholders to deliver projects on time"
+      ],
+      description: "Join our team as a Lead Analyst where you'll drive innovation in application development. We're seeking an experienced professional who can lead technical initiatives and mentor development teams."
     },
     {
       id: 3,
@@ -80,7 +105,17 @@ const JobSearch = () => {
       location: "Bangalore, India",
       salary: "₹6-10 LPA",
       postedDate: "Posted 3 days ago",
-      isEarlyApplicant: false
+      isEarlyApplicant: false,
+      jobType: "Remote",
+      skills: ["React", "Vue.js", "Python", "Django", "PostgreSQL", "Git"],
+      responsibilities: [
+        "Develop and maintain full-stack web applications",
+        "Create responsive user interfaces using modern frameworks",
+        "Build robust backend APIs and database schemas",
+        "Implement automated testing and deployment pipelines",
+        "Collaborate with design and product teams"
+      ],
+      description: "TechCorp Solutions is seeking a talented Full Stack Developer to join our innovative team. You'll work on cutting-edge projects and have the opportunity to shape the future of web development."
     },
     {
       id: 4,
@@ -90,7 +125,17 @@ const JobSearch = () => {
       location: "Mumbai, India",
       salary: "₹5-8 LPA",
       postedDate: "Posted 1 week ago",
-      isEarlyApplicant: true
+      isEarlyApplicant: true,
+      jobType: "Hybrid",
+      skills: ["React", "Redux", "JavaScript", "CSS3", "HTML5", "REST APIs"],
+      responsibilities: [
+        "Build interactive user interfaces with React",
+        "Implement state management using Redux",
+        "Optimize application performance and user experience",
+        "Write clean, reusable component code",
+        "Work closely with UI/UX designers"
+      ],
+      description: "Digital Innovations is looking for a creative React Developer to join our frontend team. You'll be working on exciting projects that impact millions of users worldwide."
     },
     {
       id: 5,
@@ -100,7 +145,17 @@ const JobSearch = () => {
       location: "Chennai, India",
       salary: "₹7-12 LPA",
       postedDate: "Posted 5 days ago",
-      isEarlyApplicant: false
+      isEarlyApplicant: false,
+      jobType: "On-site",
+      skills: ["Python", "Django", "Flask", "PostgreSQL", "Redis", "Celery"],
+      responsibilities: [
+        "Develop scalable Python applications and APIs",
+        "Work with databases and data processing pipelines",
+        "Implement automated testing and deployment strategies",
+        "Collaborate with data scientists and analysts",
+        "Maintain and optimize existing codebases"
+      ],
+      description: "DataTech Labs is seeking a skilled Python Developer to join our data-driven team. You'll work on complex data processing applications and contribute to our machine learning initiatives."
     }
   ];
 
@@ -274,7 +329,7 @@ const JobSearch = () => {
                         </button>
                         <button 
                           className="apply-btn"
-                          onClick={() => handleApply(job.title)}
+                          onClick={() => handleApply(job)}
                         >
                           <span className="btn-icon">⚡</span>
                           Quick Apply

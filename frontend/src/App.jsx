@@ -14,6 +14,7 @@ import RecruiterProfile from './components/RecruiterProfile';
 import PostJob from './components/PostJob';
 import AllProjects from './components/AllProjects';
 import JobSearch from './components/JobSearch';
+import JobApplication from './components/JobApplication';
 import './App.css';
 
 
@@ -91,6 +92,11 @@ function App() {
           {/* Job Search Page */}
           <Route path="/job-search" element={
             <JobSearch />
+          } />
+          
+          {/* Job Application Page */}
+          <Route path="/job-application" element={
+            <JobApplication />
           } />
         </Routes>
       </div>
