@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './JobSearch.css';
 
@@ -6,6 +6,8 @@ const JobSearch = () => {
   const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState('recommended');
   const [selectedJobs, setSelectedJobs] = useState([]);
+  const [savedJobs, setSavedJobs] = useState([]);
+  const [appliedJobs, setAppliedJobs] = useState([]);
   const [filters, setFilters] = useState({
     jobType: '',
     salary: '',
@@ -26,13 +28,44 @@ const JobSearch = () => {
     console.log(`Navigating to apply for ${job.title}`);
     navigate('/job-application', { 
       state: { 
-        jobData: job 
+        jobData: job
       } 
     });
   };
 
-  const handleSave = (jobTitle) => {
-    console.log(`Saved ${jobTitle}`);
+  // Load applied jobs from localStorage on component mount
+  useEffect(() => {
+    const savedAppliedJobs = localStorage.getItem('appliedJobs');
+    if (savedAppliedJobs) {
+      setAppliedJobs(JSON.parse(savedAppliedJobs));
+    }
+  }, []);
+
+  // Check for new applied jobs when window gains focus (returning from job application)
+  useEffect(() => {
+    const handleFocus = () => {
+      const savedAppliedJobs = localStorage.getItem('appliedJobs');
+      if (savedAppliedJobs) {
+        setAppliedJobs(JSON.parse(savedAppliedJobs));
+      }
+    };
+
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, []);
+
+  const handleSave = (job) => {
+    const isJobSaved = savedJobs.some(savedJob => savedJob.id === job.id);
+    
+    if (isJobSaved) {
+      // Remove from saved jobs
+      setSavedJobs(prev => prev.filter(savedJob => savedJob.id !== job.id));
+      console.log(`Removed ${job.title} from saved jobs`);
+    } else {
+      // Add to saved jobs
+      setSavedJobs(prev => [...prev, job]);
+      console.log(`Added ${job.title} to saved jobs`);
+    }
   };
 
   const handleSelectAll = () => {
@@ -275,70 +308,134 @@ const JobSearch = () => {
           {/* Job Listings */}
           <div className="job-listings">
             <div className="job-listings-header">
-              <span className="job-count">Showing {jobs.length} jobs</span>
-              <label className="select-all-container">
-                <input 
-                  type="checkbox" 
-                  checked={selectedJobs.length === jobs.length && jobs.length > 0}
-                  onChange={handleSelectAll}
-                />
-                Select all (upto 15 quick apply jobs)
-              </label>
+              <span className="job-count">
+                Showing {
+                  selectedTab === 'saved' ? savedJobs.length : 
+                  selectedTab === 'applied' ? appliedJobs.length : 
+                  jobs.length
+                } jobs
+              </span>
+              {selectedTab === 'recommended' && (
+                <label className="select-all-container">
+                  <input 
+                    type="checkbox" 
+                    checked={selectedJobs.length === jobs.length && jobs.length > 0}
+                    onChange={handleSelectAll}
+                  />
+                  Select all (upto 15 quick apply jobs)
+                </label>
+              )}
             </div>
 
             <div className="jobs-section">
-              <h2 className="section-heading">Jobs based on preferences</h2>
+              <h2 className="section-heading">
+                {selectedTab === 'saved' ? 'Your Saved Jobs' : 
+                 selectedTab === 'applied' ? 'Your Applied Jobs' : 
+                 'Jobs based on preferences'}
+              </h2>
               
               <div className="jobs-grid">
-                {jobs.map(job => (
-                  <div key={job.id} className="job-card">
-                    <div className="job-card-content">
-                      <div className="job-main-info">
-                        <h3 className="job-title">{job.title}</h3>
-                        <div className="job-company">
-                          <span className="company-name">{job.company}</span>
-                          <div className="company-logo">🏢</div>
-                        </div>
-                        
-                        <div className="job-details">
-                          <div className="job-detail-item">
-                            <span className="detail-icon">💼</span>
-                            <span className="detail-text">{job.experience}</span>
+                {(selectedTab === 'saved' ? savedJobs : 
+                  selectedTab === 'applied' ? appliedJobs : 
+                  jobs).map(job => {
+                  const isJobSaved = savedJobs.some(savedJob => savedJob.id === job.id);
+                  const isJobApplied = appliedJobs.some(appliedJob => appliedJob.id === job.id);
+                  
+                  return (
+                    <div key={job.id} className="job-card">
+                      <div className="job-card-content">
+                        <div className="job-main-info">
+                          <h3 className="job-title">{job.title}</h3>
+                          <div className="job-company">
+                            <span className="company-name">{job.company}</span>
+                            <div className="company-logo">🏢</div>
                           </div>
-                          <div className="job-detail-item">
-                            <span className="detail-icon">📍</span>
-                            <span className="detail-text">{job.location}</span>
+                          
+                          <div className="job-details">
+                            <div className="job-detail-item">
+                              <span className="detail-icon">💼</span>
+                              <span className="detail-text">{job.experience}</span>
+                            </div>
+                            <div className="job-detail-item">
+                              <span className="detail-icon">📍</span>
+                              <span className="detail-text">{job.location}</span>
+                            </div>
+                          </div>
+
+                          <div className="job-status">
+                            <span className="status-icon">🕐</span>
+                            <span className="status-text">
+                              {selectedTab === 'applied' ? job.status || 'Applied' : 'Early Applicant'}
+                            </span>
+                          </div>
+
+                          <div className="job-posted">
+                            {selectedTab === 'applied' && job.appliedDate ? 
+                              `Applied on ${new Date(job.appliedDate).toLocaleDateString()}` : 
+                              job.postedDate
+                            }
                           </div>
                         </div>
 
-                        <div className="job-status">
-                          <span className="status-icon">🕐</span>
-                          <span className="status-text">Early Applicant</span>
+                        <div className="job-actions">
+                          {selectedTab !== 'applied' && (
+                            <button 
+                              className={`save-btn ${isJobSaved ? 'saved' : ''}`}
+                              onClick={() => handleSave(job)}
+                            >
+                              <span className="btn-icon">{isJobSaved ? '❤️' : '🔖'}</span>
+                              {isJobSaved ? 'Saved' : 'Save'}
+                            </button>
+                          )}
+                          {selectedTab === 'applied' ? (
+                            <button className="applied-btn" disabled>
+                              <span className="btn-icon">✓</span>
+                              Applied
+                            </button>
+                          ) : (
+                            <button 
+                              className={`apply-btn ${isJobApplied ? 'applied' : ''}`}
+                              onClick={() => handleApply(job)}
+                              disabled={isJobApplied}
+                            >
+                              <span className="btn-icon">{isJobApplied ? '✓' : '⚡'}</span>
+                              {isJobApplied ? 'Applied' : 'Quick Apply'}
+                            </button>
+                          )}
                         </div>
-
-                        <div className="job-posted">{job.postedDate}</div>
-                      </div>
-
-                      <div className="job-actions">
-                        <button 
-                          className="save-btn"
-                          onClick={() => handleSave(job.title)}
-                        >
-                          <span className="btn-icon">🔖</span>
-                          Save
-                        </button>
-                        <button 
-                          className="apply-btn"
-                          onClick={() => handleApply(job)}
-                        >
-                          <span className="btn-icon">⚡</span>
-                          Quick Apply
-                        </button>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
+              
+              {selectedTab === 'saved' && savedJobs.length === 0 && (
+                <div className="empty-state">
+                  <div className="empty-icon">🔖</div>
+                  <h3>No saved jobs yet</h3>
+                  <p>Start saving jobs you're interested in by clicking the save button on any job listing.</p>
+                  <button 
+                    className="browse-jobs-btn"
+                    onClick={() => setSelectedTab('recommended')}
+                  >
+                    Browse Jobs
+                  </button>
+                </div>
+              )}
+
+              {selectedTab === 'applied' && appliedJobs.length === 0 && (
+                <div className="empty-state">
+                  <div className="empty-icon">📝</div>
+                  <h3>No applied jobs yet</h3>
+                  <p>Start applying to jobs you're interested in by clicking the apply button on any job listing.</p>
+                  <button 
+                    className="browse-jobs-btn"
+                    onClick={() => setSelectedTab('recommended')}
+                  >
+                    Browse Jobs
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

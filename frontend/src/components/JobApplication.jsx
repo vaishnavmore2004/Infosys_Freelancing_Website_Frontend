@@ -44,12 +44,32 @@ const JobApplication = () => {
     // Simulate application process
     console.log(`Applied for ${jobData.title} at ${jobData.company}`);
     
+    // Store applied job data in localStorage
+    const appliedJob = {
+      ...jobData,
+      appliedDate: new Date().toISOString(),
+      status: 'Applied'
+    };
+    
+    // Get existing applied jobs from localStorage
+    const existingAppliedJobs = JSON.parse(localStorage.getItem('appliedJobs') || '[]');
+    
+    // Check if job is already applied
+    const isAlreadyApplied = existingAppliedJobs.some(job => job.id === appliedJob.id);
+    
+    if (!isAlreadyApplied) {
+      // Add new applied job
+      const updatedAppliedJobs = [...existingAppliedJobs, appliedJob];
+      localStorage.setItem('appliedJobs', JSON.stringify(updatedAppliedJobs));
+    }
+    
     // Show success popup
     setShowSuccessPopup(true);
     
-    // Hide popup after 3 seconds
+    // Hide popup after 3 seconds and navigate back
     setTimeout(() => {
       setShowSuccessPopup(false);
+      navigate('/job-search');
     }, 3000);
   };
 
