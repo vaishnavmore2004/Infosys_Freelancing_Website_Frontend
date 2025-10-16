@@ -24,6 +24,11 @@ const FreelancerDashboard = () => {
     console.log(`Applied for ${projectName}`);
   };
 
+  const handleUpgradePlan = () => {
+    console.log('Navigating to upgrade plan...');
+    navigate('/upgrade-plan');
+  };
+
   return (
     <div className="dashboard-page">
       {/* Header Section */}
@@ -32,6 +37,9 @@ const FreelancerDashboard = () => {
           <h1>Welcome! Freelancer</h1>
         </div>
         <div className="header-buttons">
+          <button className="header-btn upgrade-plan-btn" onClick={handleUpgradePlan}>
+            Upgrade Plan
+          </button>
           <button className="header-btn find-job-btn" onClick={handleFindJob}>
             Find Job
           </button>

@@ -15,6 +15,7 @@ import PostJob from './components/PostJob';
 import AllProjects from './components/AllProjects';
 import JobSearch from './components/JobSearch';
 import JobApplication from './components/JobApplication';
+import UpgradePlan from './components/UpgradePlan';
 import './App.css';
 
 
@@ -97,6 +98,11 @@ function App() {
           {/* Job Application Page */}
           <Route path="/job-application" element={
             <JobApplication />
+          } />
+          
+          {/* Upgrade Plan Page */}
+          <Route path="/upgrade-plan" element={
+            <UpgradePlan />
           } />
         </Routes>
       </div>

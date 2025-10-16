@@ -105,6 +105,41 @@
               0 0 30px rgba(238, 84, 74, 0.5);
 }
 
+.upgrade-plan-btn {
+  background: linear-gradient(90deg, #00FF88, #00C46B);
+  color: #000000;
+  font-weight: 600;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4);
+}
+
+.upgrade-plan-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.3), 
+    transparent);
+  transition: left 0.5s ease;
+}
+
+.upgrade-plan-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 30px rgba(0, 255, 136, 0.6),
+              0 0 30px rgba(0, 196, 107, 0.5);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.upgrade-plan-btn:hover::before {
+  left: 100%;
+}
+
 .header-btn:active {
   transform: translateY(0);
 }
