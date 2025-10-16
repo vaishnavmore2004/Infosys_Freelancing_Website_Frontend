@@ -16,6 +16,7 @@ import AllProjects from './components/AllProjects';
 import JobSearch from './components/JobSearch';
 import JobApplication from './components/JobApplication';
 import UpgradePlan from './components/UpgradePlan';
+import FreelancerHallOfFame from './components/FreelancerHallOfFame';
 import './App.css';
 
 
@@ -103,6 +104,11 @@ function App() {
           {/* Upgrade Plan Page */}
           <Route path="/upgrade-plan" element={
             <UpgradePlan />
+          } />
+          
+          {/* Hall of Fame Page */}
+          <Route path="/hall-of-fame" element={
+            <FreelancerHallOfFame />
           } />
         </Routes>
       </div>

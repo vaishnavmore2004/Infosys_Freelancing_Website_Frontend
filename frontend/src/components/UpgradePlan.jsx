@@ -35,10 +35,9 @@ const UpgradePlan = () => {
       description: 'Perfect for new freelancers building their profiles and exploring the platform.',
       features: [
         'Apply to 5 Projects per Day',
-        'Access to Level System (up to Level 10)',
-        '1 Free Skill Assessment Test',
-        'Basic Profile Visibility',
-        'Community Access'
+        'Access to Level System (up to Level 10)'
+        
+        
       ],
       buttonText: 'Start for Free',
       buttonStyle: 'free-btn',
@@ -57,10 +56,8 @@ const UpgradePlan = () => {
         'Profile marked as "Pro Verified"',
         'Access to Level System (up to Level 70)',
         'Access to Direct Chat with Recruiters',
-        'Priority profile listing in search results',
-        'Advanced Analytics Dashboard',
-        'Chat Support',
-        '5 Skill Assessment Tests'
+        'Chat Support'
+        
       ],
       buttonText: 'Upgrade to Pro',
       buttonStyle: 'pro-btn',
@@ -76,15 +73,11 @@ const UpgradePlan = () => {
       description: 'Perfect for full-time or agency-level freelancers managing multiple clients.',
       features: [
         'Unlimited Job Applications',
-        'Featured Freelancer tag in search results',
         'Access to Full Level System (Level 1–100)',
         'Access to Premium Client Leads (Top Companies)',
         'Dedicated Account Support Manager',
-        '24×7 Premium Support',
-        'Unlimited Skill Assessment Tests',
-        'Advanced Project Management Tools',
-        'Custom Portfolio Showcase',
-        'Priority Customer Support'
+        '24×7 Premium Support'
+        
       ],
       buttonText: 'Go Advanced',
       buttonStyle: 'advanced-btn'
